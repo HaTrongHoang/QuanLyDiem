@@ -1,0 +1,16 @@
+eclipse.preferences.version=1
+encoding//src/com/hung/Dao/DiemDao.java=UTF-8
+encoding//src/com/hung/controller/giaovien/AddYeuCauController.java=UTF-8
+encoding//src/com/hung/controller/giaovien/DetailTaiKhoanController.java=UTF-8
+encoding//src/com/hung/controller/giaovien/DiemController.java=UTF-8
+encoding//src/com/hung/controller/giaovien/ExportDSLopController.java=UTF-8
+encoding//src/com/hung/controller/giaovien/ExportDiemController.java=UTF-8
+encoding//src/com/hung/controller/giaovien/ExportMauController.java=UTF-8
+encoding//src/com/hung/controller/giaovien/ExportThiLaiController.java=UTF-8
+encoding//src/com/hung/controller/giaovien/ExportThiLaiLopController.java=UTF-8
+encoding//src/com/hung/controller/giaovien/ImportExcelController.java=UTF-8
+encoding//src/com/hung/controller/giaovien/ImportThiL1Controller.java=UTF-8
+encoding//src/com/hung/controller/giaovien/ImportThiL2Controller.java=UTF-8
+encoding//src/com/hung/controller/giaovien/PhanMonController.java=UTF-8
+encoding//src/com/hung/controller/giaovien/UpdateDiemAdmin.java=UTF-8
+encoding//src/com/hung/controller/giaovien/UpdateDiemController.java=UTF-8
