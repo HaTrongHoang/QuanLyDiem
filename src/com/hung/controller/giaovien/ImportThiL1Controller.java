@@ -48,7 +48,7 @@ public class ImportThiL1Controller extends HttpServlet {
 			for (FileItem item : items) {
 				if (item.getFieldName().equals("file")) {
 					if (item.getSize() > 0) {
-						final String UPLOAD = "E:\\Java\\QuanLyDiem\\WebContent\\upload\\file";
+						final String UPLOAD = "C:\\Users\\Windows10\\Desktop\\DoAn\\QuanLyDiem\\WebContent\\upload\\file";
 						File UPLOAD_FILE = new File(UPLOAD);
 						if (!UPLOAD_FILE.exists()) {
 							UPLOAD_FILE.mkdir();
@@ -94,13 +94,24 @@ public class ImportThiL1Controller extends HttpServlet {
 
 									} else {
 										SinhVien svNull = new SinhVien();
+										svNull.setMsv("");
 										diem.setSinhvien(svNull);
 									}
 									break;
 								case hocphan:
 									MonDao monDao = new MonDaoImpl();
-									Mon mon = monDao.getMaMon(cell.getStringCellValue().toString());
-									diem.setMon(mon);
+
+									System.out.println("id_mon" + cell.getStringCellValue().toString());
+									if (monDao.getMaMon(cell.getStringCellValue().toString().trim()) != null) {
+										Mon mon = monDao.getMaMon(cell.getStringCellValue().toString().trim());
+										diem.setMon(mon);
+
+									} else {
+										Mon monU = new Mon();
+										monU.setMamon("");
+										diem.setMon(monU);
+									}
+
 									break;
 								case ketthuc1:
 									try {
@@ -111,63 +122,71 @@ public class ImportThiL1Controller extends HttpServlet {
 									break;
 								}
 							}
-							if (diem.getSinhvien().getMsv() != null) {
 
-								Diem diemSV = diemDao.getSV(diem.getSinhvien().getId_sinhvien(),
-										diem.getMon().getId_mon());
-								if (diemSV.getChuyencan() == "F") {
-									diem.setDiemchu("F");
-									diem.setKetthuc1("0");
-									diem.setDanhgia("CAMTHI");
-									diem.setTongket("0");
-								} else {
-									float chuyencan = Float.parseFloat(diemSV.getChuyencan());
-									float kiemtragk = Float.parseFloat(diemSV.getKiemtragk());
-									float ketthuc = Float.parseFloat(diem.getKetthuc1());
-									float tongket = (float) (chuyencan * 0.1 + kiemtragk * 0.2 + ketthuc * 0.7);
-									diem.setTongket(Float.toString(tongket));
-									if (diem.getTongket() != "") {
-										try {
-											if (tongket >= 4.0) {
-												diem.setDanhgia("DAT");
-											} else if (tongket < 4.0) {
-												diem.setDanhgia("THILAI");
+							if (!diem.getSinhvien().getMsv().equals("")) {
+								if (!diem.getMon().getMamon().equals("")) {
+									if (diemDao.getSV(diem.getSinhvien().getId_sinhvien(),
+											diem.getMon().getId_mon()) != null) {
+
+										Diem diemSV = diemDao.getSV(diem.getSinhvien().getId_sinhvien(),
+												diem.getMon().getId_mon());
+										if (diemSV.getChuyencan().equals("F")) {
+											diem.setDiemchu("F");
+											diem.setKetthuc1("0");
+											diem.setDanhgia("HOCLAI");
+											diem.setTongket("0");
+										} else {
+											float chuyencan = Float.parseFloat(diemSV.getChuyencan());
+											float kiemtragk = Float.parseFloat(diemSV.getKiemtragk());
+											float ketthuc = Float.parseFloat(diem.getKetthuc1());
+											float tongket = (float) (chuyencan * 0.1 + kiemtragk * 0.2 + ketthuc * 0.7);
+											diem.setTongket(Float.toString(tongket));
+											if (diem.getTongket() != "") {
+												try {
+													if (tongket >= 4.0) {
+														diem.setDanhgia("DAT");
+													} else if (tongket < 4.0) {
+														diem.setDanhgia("THILAI");
+													}
+													if (tongket < 4.0) {
+														diem.setDiemchu("F");
+													} else if (tongket >= 4.0 && tongket <= 4.9) {
+														diem.setDiemchu("D");
+													} else if (tongket >= 5.0 && tongket <= 5.4) {
+														diem.setDiemchu("D+");
+													} else if (tongket >= 5.5 && tongket <= 6.4) {
+														diem.setDiemchu("C");
+													} else if (tongket >= 6.5 && tongket <= 6.9) {
+														diem.setDiemchu("C+");
+													} else if (tongket >= 7.0 && tongket <= 7.9) {
+														diem.setDiemchu("B");
+													} else if (tongket >= 8.0 && tongket <= 8.4) {
+														diem.setDiemchu("B+");
+													} else if (tongket >= 8.5 && tongket <= 10) {
+														diem.setDiemchu("A");
+													}
+												} catch (NumberFormatException e) {
+												}
 											}
-											if (tongket < 4.0) {
-												diem.setDiemchu("F");
-											} else if (tongket >= 4.0 && tongket <= 4.9) {
-												diem.setDiemchu("D");
-											} else if (tongket >= 5.0 && tongket <= 5.4) {
-												diem.setDiemchu("D+");
-											} else if (tongket >= 5.5 && tongket <= 6.4) {
-												diem.setDiemchu("C");
-											} else if (tongket >= 6.5 && tongket <= 6.9) {
-												diem.setDiemchu("C+");
-											} else if (tongket >= 7.0 && tongket <= 7.9) {
-												diem.setDiemchu("B");
-											} else if (tongket >= 8.0 && tongket <= 8.4) {
-												diem.setDiemchu("B+");
-											} else if (tongket >= 8.5 && tongket <= 10) {
-												diem.setDiemchu("A");
-											}
-										} catch (NumberFormatException e) {
+
 										}
+										diemDao.importExcelL1(diem);
 									}
 
 								}
-
-								diemDao.importExcelL1(diem);
 							}
 							wb.close();
 							fileInputStream.close();
 							UPLOAD_EXCEL.delete();
-							resp.sendRedirect(req.getContextPath() + "/giaovien/nhapxuat?mess=success");
 
 						}
 					}
 
 				}
+
 			}
+			resp.sendRedirect(req.getContextPath() + "/giaovien/nhapxuat?mess=success");
+
 		} catch (
 
 		FileUploadException e) {

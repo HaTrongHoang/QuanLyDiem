@@ -32,18 +32,6 @@
 				</a></li>-->
 				<li><i class="zmdi zmdi-account-calendar"></i>Quản lý tài khoản
 
-
-
-
-
-
-
-
-
-
-
-
-
 				
 				<li><a href="/QuanLyDiem/admin/feedback?status=1">Giáo Viên</a></li>
 				<li><a href="/QuanLyDiem/admin/feedback?status=2"">Sinh
@@ -128,6 +116,8 @@
 				</a></li>
 				<li><a href="/QuanLyDiem/giaovien/lop"><i
 						class="fas fa-book"></i>Lớp học </a></li>
+				<li><a href="/QuanLyDiem/giaovien/mon"><i
+						class="fas fa-book"></i>Học phần</a></li>
 				<li><a href="/QuanLyDiem/giaovien/diem"> <i
 						class="fa fa-bars" aria-hidden="true"></i> Quản lý điểm
 				</a></li>

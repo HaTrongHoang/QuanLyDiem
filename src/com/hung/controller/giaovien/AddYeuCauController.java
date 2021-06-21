@@ -57,39 +57,6 @@ public class AddYeuCauController extends HttpServlet {
 				diem.setStatus(1);
 			} else {
 				diem.setKiemtragk(kiemtragk);
-//				diem.setKetthuc1(ketthuc1);
-//				diem.setKetthuc2(ketthuc2);
-//
-//				if (tongket != "") {
-//					float tkhp = Float.parseFloat(tongket);
-//					if (tkhp >= 4.0) {
-//						diem.setDanhgia("DAT");
-//					} else if (tkhp < 4.0) {
-//						diem.setDanhgia("THILAI");
-//					}
-//
-//				}
-//				if (tongket != "") {
-//					float tkhp = Float.parseFloat(tongket);
-//					if (tkhp < 4.0) {
-//						diem.setDiemchu("F");
-//					} else if (tkhp >= 4.0 && tkhp <= 4.9) {
-//						diem.setDiemchu("D");
-//					} else if (tkhp >= 5.0 && tkhp <= 5.4) {
-//						diem.setDiemchu("D+");
-//					} else if (tkhp >= 5.5 && tkhp <= 6.4) {
-//						diem.setDiemchu("C");
-//					} else if (tkhp >= 6.5 && tkhp <= 6.9) {
-//						diem.setDiemchu("C+");
-//					} else if (tkhp >= 7.0 && tkhp <= 7.9) {
-//						diem.setDiemchu("B");
-//					} else if (tkhp >= 8.0 && tkhp <= 8.4) {
-//						diem.setDiemchu("B+");
-//					} else if (tkhp >= 8.5 && tkhp <= 10) {
-//						diem.setDiemchu("A");
-//					}
-//				}
-//				diem.setTongket(tongket);
 				diem.setStatus(1);
 			}
 			diemDao.updateDiem(diem);
@@ -109,11 +76,12 @@ public class AddYeuCauController extends HttpServlet {
 				yeucau.setStatus(0);
 			} else {
 				yeucau.setKiemtragk(kiemtragk);
-				if (ketthuc1!=""&&ketthuc2 == "") {
+				if (ketthuc1 != "" && ketthuc2 == "") {
 					float dchuyencan = Float.parseFloat(chuyencan);
 					float dkiemtragk = Float.parseFloat(kiemtragk);
 					float dkethuc1 = Float.parseFloat(ketthuc1);
 					yeucau.setKetthuc1(ketthuc1);
+					yeucau.setKetthuc2(ketthuc2);
 					float dtongket = (float) (dchuyencan * 0.1 + dkiemtragk * 0.2 + dkethuc1 * 0.7);
 					yeucau.setTongket(Float.toString(dtongket));
 					if (yeucau.getTongket() != "") {
@@ -150,6 +118,7 @@ public class AddYeuCauController extends HttpServlet {
 					float dkethuc2 = Float.parseFloat(ketthuc2);
 					float dtongket = (float) (dchuyencan * 0.1 + dkiemtragk * 0.2 + dkethuc2 * 0.7);
 					yeucau.setKetthuc1(ketthuc1);
+					yeucau.setKetthuc2(ketthuc2);
 					yeucau.setTongket(Float.toString(dtongket));
 					if (yeucau.getTongket() != "") {
 						try {

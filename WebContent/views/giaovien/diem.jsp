@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="com.hung.model.Diem"%>
+<%@ page import="javax.servlet.http.HttpSession"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,28 +44,8 @@
 										</button>
 									</div>
 								</c:when>
-								<c:when test="${param.mess eq 'addsuccess' }">
-									<div
-										class="sufee-alert alert with-close alert-success alert-dismissible fade show">
-										<span class="badge badge-pill badge-success">Success</span>
-										Them thanh cong
-										<button type="button" class="close" data-dismiss="alert"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-								</c:when>
-								<c:when test="${param.mess eq 'delete' }">
-									<div
-										class="sufee-alert alert with-close alert-success alert-dismissible fade show">
-										<span class="badge badge-pill badge-success">Success</span>
-										Xoa thanh cong
-										<button type="button" class="close" data-dismiss="alert"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-								</c:when>
+
+
 								<c:when test="${param.mess eq 'update' }">
 									<div
 										class="sufee-alert alert with-close alert-success alert-dismissible fade show">
@@ -77,12 +57,41 @@
 										</button>
 									</div>
 								</c:when>
+								<c:when test="${param.mess eq 'success' }">
+									<div
+										class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+										<span class="badge badge-pill badge-success">Success</span>
+										Cập nhật thành công
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								</c:when>
 							</c:choose>
+							<c:choose>
+								<c:when test="${not empty sessionScope.err}">
+									<div
+										class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+										<span class="badge badge-pill badge-danger">Erorr</span> Kiểm
+										tra lại : ${sessionScope.err }
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								</c:when>
+							</c:choose>
+							<%
+								HttpSession sessionErr = request.getSession();
+							sessionErr.removeAttribute("err");
+							%>
 							<div class="user-data m-b-30">
-								<h3 class="title-3 m-b-30">
-									<i class="zmdi zmdi-account-calendar"></i>Chọn
-								</h3>
+
 								<div class="card-body card-block">
+									<h5 class="title-3 m-b-30">
+										<i class="zmdi zmdi-account-calendar"></i>Chọn
+									</h5>
 									<form action="/QuanLyDiem/giaovien/diem" method="post"
 										class="form-horizontal">
 										<div class="table-data__tool">
@@ -164,7 +173,9 @@
 															<input name="status" value="${diem.status }"
 																type="hidden">
 															<td>${diem.sinhvien.msv }</td>
-															<td>${diem.sinhvien.hoten }</td>
+															<td><input type="text" id="text-input" name="hoten"
+																readonly value="${diem.sinhvien.hoten }"
+																style="border: none; width: 230px; background: none;"></td>
 															<td><input type="checkbox" name="camthi"
 																value="${diem.id_diem }"
 																<c:if test="${diem.danhgia eq 'HOCLAI' }">checked</c:if>></td>
@@ -176,12 +187,10 @@
 																style="width: 50px" pattern="([0-9]{1}|[1]{1}[0]{1})"></td>
 															<td><input type="text" id="text-input"
 																name="ketthuc1" value="${diem.ketthuc1 }"
-																style="width: 50px" pattern="([0-9]{1}|[1]{1}[0]{1})"
-																readonly="readonly"></td>
+																style="width: 50px" pattern="([0-9]{1}|[1]{1}[0]{1})"></td>
 															<td><input type="text" id="text-input"
 																name="ketthuc2" value="${diem.ketthuc2 }"
-																style="width: 50px" pattern="([0-9]{1}|[1]{1}[0]{1})"
-																readonly="readonly"></td>
+																style="width: 50px" pattern="([0-9]{1}|[1]{1}[0]{1})"></td>
 															<td><input type="text" name="tongket"
 																value="${diem.tongket }" style="width: 50px"
 																pattern="([0-9]{1}|[1]{1}[0]{1})" readonly="readonly"></td>
@@ -240,20 +249,32 @@
 
 										</div>
 									</form>
-
 									<div class="table-data__tool-right">
 										<form class="form-header"
-											action="/QuanLyDiem/giaovien/import?id_mon=${id_mon }"
+											action="/QuanLyDiem/giaovien/import?id_mon=${id_mon }&id_lop=${id_lop}&id_hocky=${id_hocky}"
 											method="post" enctype="multipart/form-data">
-											<input class="" type="file" name="file"
-												placeholder="Search ..." />
-											<button type="submit" class="btn btn-primary btn-sm">
-												<i class="fa fa-dot-circle-o"></i> Nhập
-											</button>
+											<div class="col col-md-5">
+												<div class="input-group">
+													<select name="diem" id="selectLg"
+														class="form-control form-control" style="border: none;">
+														<option value="1">Điểm thành phần</option>
+														<option value="2">Điểm lần 1</option>
+														<option value="3">Điểm lần 2</option>
+													</select> <input type="file" id="input3-group3" name="file"
+														placeholder=".." class="form-control"
+														style="border: none;">
+													<div class="input-group-btn">
+														<div class="btn-group">
+															<button type="submit" class="btn btn-primary">Nhập</button>
+
+														</div>
+													</div>
+												</div>
+												</button>
+											</div>
 										</form>
 									</div>
 								</div>
-
 							</div>
 							<!-- END USER DATA-->
 						</div>
@@ -309,7 +330,7 @@
 								<div class="col-12 col-md-2">
 									<input type="text" name="ketthuc1Update"
 										value="${diem.ketthuc1 }" style="width: 50px"
-										pattern="([0-9]{1}|[1]{1}[0]{1}|[F])" readonly="readonly">
+										pattern="([0-9]{1}|[1]{1}[0]{1}|[F])|([0-9]{1}[.][0-9]{1})">
 								</div>
 								<div class="col col-md-2">
 									<label for="text-input" class=" form-control-label">Thi
@@ -318,7 +339,7 @@
 								<div class="col-12 col-md-2">
 									<input type="text" name="ketthuc2Update"
 										value="${diem.ketthuc2 }" style="width: 50px"
-										pattern="([0-9]{1}|[1]{1}[0]{1}|[F])" readonly="readonly">
+										pattern="([0-9]{1}|[1]{1}[0]{1}|[F])|([0-9]{1}[.][0-9]{1})">
 								</div>
 								<div class="col col-md-2">
 									<label for="text-input" class=" form-control-label">TKHP</label>
@@ -326,7 +347,7 @@
 								<div class="col-12 col-md-2">
 									<input type="text" name="tongketUpdate"
 										value="${diem.tongket }" style="width: 50px"
-										pattern="([0-9]{1}|[1]{1}[0]{1}|[F])" readonly="readonly">
+										readonly="readonly">
 								</div>
 							</div>
 						</div>

@@ -18,7 +18,7 @@ public class TaiKhoanSVDaoImpl extends JDBCConnection implements TaiKhoanSVDao {
 	@Override
 	public List<SinhVien> getAll(int limit, int offset) {
 		List<SinhVien> sinhvienList = new ArrayList<SinhVien>();
-		final String sql = "SELECT * FROM sinhvien INNER JOIN lop ON sinhvien.lop=lop.id_lop LIMIT ? OFFSET ?";
+		final String sql = "SELECT * FROM sinhvien INNER JOIN lop ON sinhvien.lop=lop.id_lop ORDER BY id_sinhvien DESC LIMIT ? OFFSET ?";
 		Connection conn = super.getConnection();
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);

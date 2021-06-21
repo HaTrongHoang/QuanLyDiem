@@ -274,7 +274,8 @@ public class DiemDaoImpl extends JDBCConnection implements DiemDao {
 
 	@Override
 	public void importExcelL1(Diem diem) {
-		final String sql = "UPDATE diem SET ketthuc1=?,danhgia=?,diemchu=?,tongket=?" + " WHERE sinhvien=? AND mon=?";
+		final String sql = "UPDATE diem SET ketthuc1=?,danhgia=?,diemchu=?,tongket=?,ghichu=?"
+				+ " WHERE sinhvien=? AND mon=?";
 		Connection conn = super.getConnection();
 
 		try {
@@ -283,8 +284,9 @@ public class DiemDaoImpl extends JDBCConnection implements DiemDao {
 			preparedStatement.setString(2, diem.getDanhgia());
 			preparedStatement.setString(3, diem.getDiemchu());
 			preparedStatement.setString(4, diem.getTongket());
-			preparedStatement.setInt(5, diem.getSinhvien().getId_sinhvien());
-			preparedStatement.setInt(6, diem.getMon().getId_mon());
+			preparedStatement.setString(5, diem.getGhichu());
+			preparedStatement.setInt(6, diem.getSinhvien().getId_sinhvien());
+			preparedStatement.setInt(7, diem.getMon().getId_mon());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

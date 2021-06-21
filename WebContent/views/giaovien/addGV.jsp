@@ -6,7 +6,7 @@
 
 <head>
 <!-- Required meta tags-->
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="au theme template">
@@ -72,7 +72,8 @@
 									class="form-horizontal" enctype="multipart/form-data">
 									<div class="row form-group">
 										<div class="col col-md-3">
-											<label for="text-input" class=" form-control-label">Họ tên</label>
+											<label for="text-input" class=" form-control-label">Họ
+												tên</label>
 										</div>
 										<div class="col-12 col-md-9">
 											<input type="text" id="text-input" name="hoten"
@@ -83,13 +84,14 @@
 									</div>
 									<div class="row form-group">
 										<div class="col col-md-3">
-											<label for="text-input" class=" form-control-label">Mã Giáo Viên</label>
+											<label for="text-input" class=" form-control-label">Mã
+												Giáo Viên</label>
 										</div>
 										<div class="col-12 col-md-9">
 											<input type="text" id="text-input" name="mgv"
-												placeholder="MGV" class="form-control" required pattern="^[a-zA-Z0-9]{5,15}$">
-											<small class="form-text text-muted">This is a help
-												text</small>
+												placeholder="MGV" class="form-control" required
+												pattern="^[a-zA-Z0-9]{5,15}$"> <small
+												class="form-text text-muted">This is a help text</small>
 										</div>
 									</div>
 									<!--  <div class="row form-group">
@@ -104,7 +106,8 @@
 										</div>-->
 									<div class="row form-group">
 										<div class="col col-md-3">
-											<label for="select" class=" form-control-label">Chức vụ</label>
+											<label for="select" class=" form-control-label">Chức
+												vụ</label>
 										</div>
 										<div class="col-12 col-md-9">
 											<select name="role" id="select" class="form-control" required>
@@ -134,7 +137,8 @@
 									</div>
 									<div class="row form-group">
 										<div class="col col-md-3">
-											<label for="text-input" class=" form-control-label">Địa chỉ</label>
+											<label for="text-input" class=" form-control-label">Địa
+												chỉ</label>
 										</div>
 										<div class="col-12 col-md-9">
 											<input type="text" id="text-input" name="diachi"
@@ -145,7 +149,8 @@
 									</div>
 									<div class="row form-group">
 										<div class="col col-md-3">
-											<label for="text-input" class=" form-control-label">Ngày sinh</label>
+											<label for="text-input" class=" form-control-label">Ngày
+												sinh</label>
 										</div>
 										<div class="col-12 col-md-9">
 											<input type="text" id="text-input" name="ngaysinh"
@@ -156,7 +161,8 @@
 									</div>
 									<div class="row form-group">
 										<div class="col col-md-3">
-											<label for="text-input" class=" form-control-label">Số điện thoại</label>
+											<label for="text-input" class=" form-control-label">Số
+												điện thoại</label>
 										</div>
 										<div class="col-12 col-md-9">
 											<input type="text" id="text-input" name="sdt"
@@ -188,11 +194,24 @@
 										<button type="submit" class="btn btn-primary btn-sm">
 											<i class="fa fa-dot-circle-o"></i> Submit
 										</button>
-										<button type="reset" class="btn btn-danger btn-sm">
-											<i class="fa fa-ban"></i> Reset
-										</button>
 									</div>
 								</form>
+								<div class="table-data__tool">
+									<div class="col col-md-10">
+										<form class="form-header"
+											action="/QuanLyDiem/giaovien/importGV" method="post"
+											enctype="multipart/form-data">
+											<input class="" type="file" name="file" />
+											<button type="submit" class="btn btn-primary btn-sm">
+												<i class="fa fa-dot-circle-o"></i> Nhập
+											</button>
+
+										</form>
+									</div>
+									<div class="col col-md-2">
+										<a href="/QuanLyDiem/giaovien/exportTk">File mẫu</a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

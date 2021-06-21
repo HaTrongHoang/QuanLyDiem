@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="javax.servlet.http.HttpSession"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,33 +67,16 @@
 									</div>
 								</c:when>
 							</c:choose>
-							<c:choose>
-								<c:when test="${not empty sessionScope.errTK}">
-									<div
-										class="sufee-alert alert with-close alert-success alert-dismissible fade show">
-										<span class="badge badge-pill badge-danger">Erorr</span> Kiểm
-										tra lại : ${sessionScope.errTK }
-										<button type="button" class="close" data-dismiss="alert"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-								</c:when>
-							</c:choose>
-							<%
-								HttpSession sessionErr = request.getSession();
-							sessionErr.removeAttribute("errTK");
-							%>
 							<!-- USER DATA-->
 							<div class="user-data m-b-30">
 								<h3 class="title-3 m-b-30">
-									<i class="zmdi zmdi-account-calendar"></i>Danh sách sinh viên
+									<i class="zmdi zmdi-account-calendar"></i>Danh sách "${key }"
 								</h3>
 								<div class="table-data__tool">
 									<div class="table-data__tool-left">
 										<button class=" au-btn-icon au-btn--small">
 											<c:if test="${loginGiaoVien.role eq 0 }">
-												<a href="/QuanLyDiem/giaovien/addSV"><i
+												<a href="/QuanLyDiem/giaovien/addmon"><i
 													class="zmdi zmdi-plus"></i>Thêm mới</a>
 											</c:if>
 										</button>
@@ -102,7 +84,7 @@
 									<div class="table-data__tool-right">
 
 										<form class="form-header"
-											action="/QuanLyDiem/giaovien/searchSV" method="POST">
+											action="/QuanLyDiem/giaovien/searchmon" method="POST">
 											<input class="au-input au-input--xl" type="text" name="key"
 												placeholder="Search ..." />
 											<button class="au-btn--submit" type="submit">
@@ -116,50 +98,28 @@
 										<thead>
 											<tr>
 												<td>ID</td>
-												<td>Ảnh</td>
-												<td>Họ tên</td>
-												<td>Mã</td>
-												<td>Số điện thoại</td>
-												<td>Lớp</td>
+												<td>Mã Học Phần</td>
+												<td>Tên Học Phần</td>
 												<td></td>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${svList}" var="sv">
+											<c:forEach items="${monListSearch}" var="monList">
 												<tr>
 													<td>
 														<div class="table-data__info">
-															<h6>${sv.id_sinhvien}</h6>
+															<h6>${monList.id_mon}</h6>
 														</div>
 													</td>
+
 													<td>
-														<div class="avatar-wrap">
-															<div class="avatar">
-																<img
-																	src="${pageContext.request.contextPath }/upload/sinhvien/${sv.img }"
-																	alt="${sv.hoten}">
-															</div>
+														<div class="table-data__info">
+															<h6>${monList.mamon}</h6>
 														</div>
 													</td>
 													<td>
 														<div class="table-data__info">
-															<a
-																href="/QuanLyDiem/giaovien/detailSV?id_sinhvien=${sv.id_sinhvien }"><h6>${sv.hoten}</h6></a>
-														</div>
-													</td>
-													<td>
-														<div class="table-data__info">
-															<h6>${sv.msv}</h6>
-														</div>
-													</td>
-													<td>
-														<div class="table-data__info">
-															<h6>${sv.sdt}</h6>
-														</div>
-													</td>
-													<td>
-														<div class="table-data__info">
-															<h6>${sv.lop.tenlop}</h6>
+															<h6>${monList.tenmon}</h6>
 														</div>
 													</td>
 													<c:if test="${loginGiaoVien.role eq 0 }">
@@ -168,14 +128,14 @@
 																<button class="item" data-toggle="tooltip"
 																	data-placement="top" title="Edit">
 																	<a
-																		href="/QuanLyDiem/giaovien/updateSV?id_sinhvien=${sv.id_sinhvien }">
+																		href="/QuanLyDiem/giaovien/updatemon?id_mon=${monList.id_mon }">
 																		<i class="zmdi zmdi-edit"></i>
 																	</a>
 																</button>
 																<button class="item" data-toggle="tooltip"
 																	data-placement="top" title="Delete">
 																	<a
-																		href="/QuanLyDiem/giaovien/deleteSV?id_sinhvien=${sv.id_sinhvien }"
+																		href="/QuanLyDiem/giaovien/deletemon?id_mon=${monList.id_mon }"
 																		onclick="return confirm('Bạn có chắc chắn muốn xóa không?');"><i
 																		class="zmdi zmdi-delete"></i></a>
 																</button>
@@ -194,27 +154,27 @@
 											<c:choose>
 												<c:when test="${page le totalPage }">
 													<li class="page-item"><a class="page-link"
-														href="${requestScope.request_uri}?page=1">Previous</a></li>
+														href="${requestScope.request_uri}?key=${key }&page=1">Previous</a></li>
 												</c:when>
 												<c:otherwise>
 													<li class="page-item"><a class="page-link"
-														href="${requestScope.request_uri}?page=${page-1 }">Previous</a></li>
+														href="${requestScope.request_uri}?key=${key }&page=${page-1 }">Previous</a></li>
 												</c:otherwise>
 											</c:choose>
 											<c:forEach items="${pageList}" var="page">
 												<li
 													class="page-item <c:if test="${param.page eq page}"> active </c:if> "><a
 													class="page-link"
-													href="${requestScope.request_uri}?page=${page}">${page}</a></li>
+													href="${requestScope.request_uri}?key=${key }&page=${page}">${page}</a></li>
 											</c:forEach>
 											<c:choose>
 												<c:when test="${page ge totalPage }">
 													<li class="page-item"><a class="page-link"
-														href="${requestScope.request_uri}?page=${totalPage}">Next</a></li>
+														href="${requestScope.request_uri}?key=${key }&page=${totalPage}">Next</a></li>
 												</c:when>
 												<c:otherwise>
 													<li class="page-item"><a class="page-link"
-														href="${requestScope.request_uri}?page=${page +1 }">Next</a></li>
+														href="${requestScope.request_uri}?key=${key }&page=${page +1 }">Next</a></li>
 												</c:otherwise>
 											</c:choose>
 										</ul>

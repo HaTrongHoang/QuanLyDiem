@@ -36,32 +36,28 @@ import com.hung.model.SinhVien;
 public class DiemController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// kiem tra la quan tri k
-		// quan tri thi hiện tất cả
-		HttpSession session = req.getSession();
-		GiaoVien gv = (GiaoVien) session.getAttribute("loginGiaoVien");
-//		if (gv.getRole() == 0) {
-//			LopDao lopDao = new LopDaoImpl();
-//			List<Lop> lop = lopDao.getAll();
-//			req.setAttribute("lopList", lop);
-//			MonDao monDao = new MonDaoImpl();
-//			List<Mon> mon = monDao.getAll();
-//			req.setAttribute("monList", mon);
-//
-//		} // giáo vien chí hiển môn và lớp đc phân
-//		if (gv.getRole() == 1) {
-		PhanMonDao phanMonDao = new PhanMonDaoImpl();
-		List<PhanMon> monList = phanMonDao.getMonGV(gv.getId_giaovien(), 1);
-		req.setAttribute("monList", monList);
-		List<PhanMon> lopList = phanMonDao.getLopGV(gv.getId_giaovien(), 1);
-		req.setAttribute("lopList", lopList);
-//		}
-		HocKyDao hocKyDao = new HocKyDaoImpl();
-		List<HocKy> hockyList = hocKyDao.getAll();
-		req.setAttribute("hockyList", hockyList);
+		if (req.getParameter("lop") == null) {
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/views/giaovien/diem.jsp");
-		dispatcher.forward(req, resp);
+			// kiem tra la quan tri k
+			// quan tri thi hiện tất cả
+			HttpSession session = req.getSession();
+			GiaoVien gv = (GiaoVien) session.getAttribute("loginGiaoVien");
+
+			PhanMonDao phanMonDao = new PhanMonDaoImpl();
+			List<PhanMon> monList = phanMonDao.getMonGV(gv.getId_giaovien(), 1);
+			req.setAttribute("monList", monList);
+			List<PhanMon> lopList = phanMonDao.getLopGV(gv.getId_giaovien(), 1);
+			req.setAttribute("lopList", lopList);
+
+			HocKyDao hocKyDao = new HocKyDaoImpl();
+			List<HocKy> hockyList = hocKyDao.getAll();
+			req.setAttribute("hockyList", hockyList);
+
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/views/giaovien/diem.jsp");
+			dispatcher.forward(req, resp);
+		} else {
+			doPost(req, resp);
+		}
 	}
 
 	@Override

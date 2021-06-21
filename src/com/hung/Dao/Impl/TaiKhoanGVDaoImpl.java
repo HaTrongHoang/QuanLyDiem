@@ -16,7 +16,7 @@ public class TaiKhoanGVDaoImpl extends JDBCConnection implements TaiKhoanGVDao {
 	@Override
 	public List<GiaoVien> getAll(int limit, int offset) {
 		List<GiaoVien> giaovienList = new ArrayList<GiaoVien>();
-		final String sql = "SELECT * FROM giaovien LIMIT ? OFFSET ?";
+		final String sql = "SELECT * FROM giaovien ORDER BY id_giaovien DESC LIMIT ? OFFSET ?";
 		Connection conn = super.getConnection();
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
@@ -338,7 +338,7 @@ public class TaiKhoanGVDaoImpl extends JDBCConnection implements TaiKhoanGVDao {
 		Connection conn = super.getConnection();
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, pass );
+			preparedStatement.setString(1, pass);
 			preparedStatement.setInt(2, id_giaovien);
 			preparedStatement.executeUpdate();
 			conn.close();

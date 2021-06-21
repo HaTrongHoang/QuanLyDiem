@@ -141,53 +141,6 @@
 									</form>
 								</div>
 							</div>
-
-							<div class="user-data m-b-30">
-								<h3 class="title-3 m-b-30">
-									<i class="zmdi zmdi-account-calendar"></i>Nhập điểm thi lần 1
-								</h3>
-								<div class="card-body card-block">
-									<div class="table-data__tool">
-										<div class="col col-md-10">
-											<form class="form-header"
-												action="/QuanLyDiem/giaovien/importl1" method="post"
-												enctype="multipart/form-data">
-												<input class="" type="file" name="file" />
-												<button type="submit" class="btn btn-primary btn-sm">
-													<i class="fa fa-dot-circle-o"></i> Nhập
-												</button>
-
-											</form>
-										</div>
-										<div class="col col-md-2">
-											<a href="/QuanLyDiem/giaovien/exportmau">File mẫu</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="user-data m-b-30">
-								<h3 class="title-3 m-b-30">
-									<i class="zmdi zmdi-account-calendar"></i>Nhập điểm thi lần 2
-								</h3>
-								<div class="card-body card-block">
-									<div class="table-data__tool">
-										<div class="col col-md-10">
-											<form class="form-header"
-												action="/QuanLyDiem/giaovien/importl2" method="post"
-												enctype="multipart/form-data">
-												<input class="" type="file" name="file" />
-												<button type="submit" class="btn btn-primary btn-sm">
-													<i class="fa fa-dot-circle-o"></i> Nhập
-												</button>
-
-											</form>
-										</div>
-										<div class="col col-md-2">
-											<a href="/QuanLyDiem/giaovien/exportmau">File mẫu</a>
-										</div>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>

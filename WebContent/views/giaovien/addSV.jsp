@@ -6,7 +6,7 @@
 
 <head>
 <!-- Required meta tags-->
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="au theme template">
@@ -35,6 +35,17 @@
 										class="sufee-alert alert with-close alert-success alert-dismissible fade show">
 										<span class="badge badge-pill badge-success">Success</span>
 										Them thanh cong
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								</c:when>
+								<c:when test="${not empty sessionScope.err}">
+									<div
+										class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+										<span class="badge badge-pill badge-danger">Erorr</span> Kiểm
+										tra lại : ${sessionScope.err }
 										<button type="button" class="close" data-dismiss="alert"
 											aria-label="Close">
 											<span aria-hidden="true">&times;</span>
@@ -72,7 +83,8 @@
 									class="form-horizontal" enctype="multipart/form-data">
 									<div class="row form-group">
 										<div class="col col-md-3">
-											<label for="text-input" class=" form-control-label">Họ tên</label>
+											<label for="text-input" class=" form-control-label">Họ
+												tên</label>
 										</div>
 										<div class="col-12 col-md-9">
 											<input type="text" id="text-input" name="hoten"
@@ -83,13 +95,14 @@
 									</div>
 									<div class="row form-group">
 										<div class="col col-md-3">
-											<label for="text-input" class=" form-control-label">Mã Sinh Viên</label>
+											<label for="text-input" class=" form-control-label">Mã
+												Sinh Viên</label>
 										</div>
 										<div class="col-12 col-md-9">
 											<input type="text" id="text-input" name="msv"
-												placeholder="Username" class="form-control" required pattern="^[a-zA-Z0-9]{5,15}$">
-											<small class="form-text text-muted">This is a help
-												text</small>
+												placeholder="Username" class="form-control" required
+												pattern="^[a-zA-Z0-9]{5,15}$"> <small
+												class="form-text text-muted">This is a help text</small>
 										</div>
 									</div>
 									<!--  <div class="row form-group">
@@ -108,9 +121,9 @@
 										</div>
 										<div class="col-12 col-md-9">
 											<select name="lop" id="select" class="form-control" required>
-											<c:forEach items="${lopList }" var="lop">
-												<option value="${lop.id_lop }">${lop.tenlop }</option>
-											</c:forEach>
+												<c:forEach items="${lopList }" var="lop">
+													<option value="${lop.id_lop }">${lop.tenlop }</option>
+												</c:forEach>
 											</select>
 										</div>
 									</div>
@@ -135,7 +148,8 @@
 									</div>
 									<div class="row form-group">
 										<div class="col col-md-3">
-											<label for="text-input" class=" form-control-label">Địa chỉ</label>
+											<label for="text-input" class=" form-control-label">Địa
+												chỉ</label>
 										</div>
 										<div class="col-12 col-md-9">
 											<input type="text" id="text-input" name="diachi"
@@ -146,7 +160,8 @@
 									</div>
 									<div class="row form-group">
 										<div class="col col-md-3">
-											<label for="text-input" class=" form-control-label">Ngày sinh</label>
+											<label for="text-input" class=" form-control-label">Ngày
+												sinh</label>
 										</div>
 										<div class="col-12 col-md-9">
 											<input type="text" id="text-input" name="ngaysinh"
@@ -157,7 +172,8 @@
 									</div>
 									<div class="row form-group">
 										<div class="col col-md-3">
-											<label for="text-input" class=" form-control-label">Số điện thoại</label>
+											<label for="text-input" class=" form-control-label">Số
+												điện thoại</label>
 										</div>
 										<div class="col-12 col-md-9">
 											<input type="text" id="text-input" name="sdt"
@@ -194,6 +210,22 @@
 										</button>
 									</div>
 								</form>
+								<div class="table-data__tool">
+									<div class="col col-md-10">
+										<form class="form-header"
+											action="/QuanLyDiem/giaovien/importSV" method="post"
+											enctype="multipart/form-data">
+											<input class="" type="file" name="file" />
+											<button type="submit" class="btn btn-primary btn-sm">
+												<i class="fa fa-dot-circle-o"></i> Nhập
+											</button>
+
+										</form>
+									</div>
+									<div class="col col-md-2">
+										<a href="/QuanLyDiem/giaovien/exportSV">File mẫu</a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
